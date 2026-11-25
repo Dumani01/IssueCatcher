@@ -8,7 +8,7 @@ Terminado local: dependencias/lockfile, secretos privados, PostgreSQL 17.12 en l
 
 Controles completados: hash ficticio, límites persistentes/progresivos, alertas, roles y último admin, invalidación de tokens/sesiones, reset concurrente, timeouts y errores. Migrador privado en backend/.env.migrate, sin cargarlo al proceso web.
 
-Verificación: npm ci; 16/16 tests backend; 2/2 Chrome con móvil; runtime mínimo; build; audit cero. Consultar TEST_REPORT.md.
+Verificación: npm ci; 16/16 tests backend; 2/2 Chrome con móvil; runtime mínimo; build; audit cero. CI de GitHub para `720fef9` aprobada. Consultar TEST_REPORT.md y docs/VERIFICATION.md.
 
 Documentación: arquitectura/DER/diccionario, STRIDE, matriz OWASP, criptografía/rotación, instalación/despliegue, Postman, demo y Deep Research de cuatro páginas con fuentes verificadas; documento oficial intacto.
 
