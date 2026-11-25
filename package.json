@@ -1,0 +1,30 @@
+{
+  "name": "issuecatcher",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "build": "npm run build -w frontend",
+    "test": "npm run test -w backend",
+    "db:migrate": "npm run migrate -w backend",
+    "audit": "npm audit --audit-level=high",
+    "start": "npm run start -w backend",
+    "setup": "node scripts/setup.mjs",
+    "db:seed": "npm run seed -w backend",
+    "mailbox": "node scripts/mailbox.mjs",
+    "local:db": "node scripts/local-db.mjs",
+    "local:start": "concurrently \"npm run start\" \"npm run mailbox\"",
+    "test:browser": "playwright test",
+    "test:runtime": "node scripts/smoke-runtime.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=24 <25"
+  }
+}

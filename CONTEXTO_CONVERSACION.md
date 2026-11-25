@@ -1,0 +1,29 @@
+# Contexto de transferencia a Codex — IssueCatcher
+
+El usuario quiere completar un laboratorio académico de seguridad Node.js, originalmente SecureVault, con identidad IssueCatcher (nombre elegido en esta conversación), eslogan Detect. Understand. Protect. El frontend debe ser sencillo, responsive, azul oscuro y verde esmeralda, con tarjetas claras e inspector HTTP. El objetivo no es una plataforma empresarial ni una aplicación de IA: es aprender y demostrar seguridad real del backend.
+
+## Evolución y decisiones
+- La propuesta original Security Lab usaba React/Vite, Express y MySQL. Se decidió usar PostgreSQL local y Supabase PostgreSQL para producción, sin MySQL. Mantener autenticación propia en Express; Supabase es la BD, no el hosting de Express.
+- Conservar notas privadas, perfil, registro/login/logout, recuperación, roles usuario/admin, auditoría y salud. Añadir laboratorio interactivo OWASP, criptografía, inspector HTTP, historial de resultados y alertas. El modo vulnerable es una simulación aislada con datos ficticios; el protegido prueba exclusivamente la API propia autorizada. No desactivar controles reales ni aceptar destinos arbitrarios.
+- Diseño: #0D1422, #101A2A, #4DD8B5, #F3F5F9, #FFFFFF, #172033. Rojo para fallos y ámbar para advertencias. Páginas públicas de login, registro, recuperación y reset; privadas de dashboard, notas, perfil, laboratorio, criptografía, inspector, resultados; administrativas de usuarios, roles, auditoría, alertas y sesiones. Mantener alcance simple.
+- React Router, Fetch con credentials include, rutas protegidas, estados de carga y errores, sin tokens en localStorage, sin HTML no sanitizado. Roles y propiedad siempre en servidor. Preferir mismo origen en producción.
+
+## Requisitos de aceptación
+RF01 registro; RF02 sesión revocable; RF03 roles; RF04 CRUD de notas cifradas propias; RF05 teléfono cifrado y enmascarado; RF06 recuperación de un solo uso; RF07 admin y auditoría; RF08 GET /health sin detalles internos. OWASP 2025 A01–A10 con mitigación y evidencia verificable por categoría. Argon2id m=19456,t=2,p=1; AES-256-GCM llave 32 bytes, IV 12 bytes único y tag 16 bytes; tokens aleatorios 32 bytes y SHA-256 almacenado; JWT HS256 fijo, sesión corta revocable, cookies HttpOnly/Secure/SameSite, CSRF. Refresh rotativo si se implementa: hash, expiración, detección de reutilización y revocación. HMAC-SHA256 para integridad cuando corresponda. No inventar criptografía.
+
+Modelo conceptual: roles, users, user_profiles, notes, sessions, password_reset_tokens, audit_logs, security_alerts, security_test_results. Normalización, FK, índices, restricciones, transacciones, rol runtime mínimo y migraciones. Adaptar esquema real sin destruir datos.
+
+Contratos previstos: GET /health; POST /api/auth/register, /login, /logout, /refresh, /forgot-password, /reset-password; GET /api/auth/me; GET/PATCH /api/profile; GET/POST /api/notes; GET/PATCH/DELETE /api/notes/:id; GET /api/admin/users, /audit, /alerts; PATCH /api/admin/users/:id/role; GET /api/security/results. Ajustar a código y documentar cambios. Refresh no es requisito obligatorio del profesor si otra sesión segura cumple RF02.
+
+Pruebas: registro, validación, login, sesión expirada/revocada, roles, IDOR leer/editar/borrar, CRUD, cifrado y manipulación, teléfono, reset único, inyección neutralizada, XSS, rate limiting, cabeceras, auditoría, errores genéricos, health, build. Diferenciar evidencia real, simulación y pendiente. Pruebas intensivas solo local/testing autorizado.
+
+## Estado inicial real
+El ZIP inicial original está preservado byte por byte en este paquete y su contenido está extraído en IssueCatcher/. Incluye código inicial React/Express, esquema SQL, configuración Docker, CI inicial, tres pruebas criptográficas, documento oficial y archivos de instrucciones. Según README, se reportaron tres pruebas criptográficas aprobadas y comprobación sintáctica; no se verificaron dependencias, build, integración DB, producción o escaneos; faltaba lockfile. Revalidar todo. No tratar el diseño de carpetas ni funcionalidades propuestas en la conversación como código ya implementado.
+
+## Ejecución con Codex
+Seleccionar manualmente modelo de código económico/mini si existe; esfuerzo bajo para tareas rutinarias, medio para seguridad y depuración. No afirmar que se seleccionó un modelo si no se puede. No empezar de cero. Leer AGENTS.md, PROMPT_CODEX.md, README.md y docs/Laboratorio_Oficial.docx. Crear PROJECT_STATUS.md y TEST_REPORT.md con progreso real. Ejecutar acciones locales autorizadas dentro del proyecto; pedir elevación o credenciales cuando sean necesarias. No borrar datos ajenos ni publicar sin autorización.
+
+Orden: auditar código; preparar Windows/Node/npm/PostgreSQL o Docker; instalar y fijar dependencias; generar secretos sin sobrescribir llaves existentes; migrar y sembrar DB de prueba; completar backend y frontend; probar y corregir; documentar; conectar Supabase con TLS verificado y rol mínimo; preparar PaaS Node HTTPS y correo SMTP; verificar producción autorizada; empaquetar.
+
+## Entrega académica y final
+Documento oficial manda. Deep Research 2–4 páginas, 10 preguntas, tres plataformas con planes vigentes y seis fuentes originales; arquitectura, DER, STRIDE, matriz OWASP, criptografía y rotación, instalación, despliegue, Postman, informe de seguridad, riesgos residuales y demo 10 minutos con tres ataques bloqueados. ZAP baseline, npm audit, Security Headers objetivo A, SSL Labs tras despliegue. Bonificación opcional MFA TOTP, rotación de llaves, Docker no root, Gitleaks, alertas externas. No inventar resultados. Generar IssueCatcher-v1.0.zip con código, migraciones, tests, lockfiles y docs; excluir .env reales, secretos, node_modules, logs sensibles. Informar bloqueos, pruebas y ruta exacta. El usuario desea un proyecto listo para conectar y ejecutar, no solo una explicación.

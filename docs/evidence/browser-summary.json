@@ -1,0 +1,11 @@
+{
+  "date": "2026-11-25",
+  "stats": {
+    "duration": 9083.987000000001,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "scope": "Chrome local, full flow and account-switch draft privacy; no production scanning"
+}
