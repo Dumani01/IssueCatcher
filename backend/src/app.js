@@ -18,26 +18,20 @@ export const app = express(),
   origin = process.env.APP_ORIGIN,
   secret = process.env.JWT_SECRET,
   key = Buffer.from(process.env.DATA_ENCRYPTION_KEY || "", "base64");
-if (
-  !origin ||
-  !secret ||
-  secret.length < 43 ||
-  key.length !== 32 ||
-  !process.env.DATABASE_URL
-)
-  throw Error("Missing or invalid configuration");
-if (
-  prod &&
-  (!origin.startsWith("https://") ||
-    origin.includes("CONFIGURE_") ||
-    process.env.DB_TLS !== "true" ||
-    !process.env.DB_CA ||
-    !process.env.SMTP_HOST ||
-    !process.env.SMTP_FROM ||
-    !process.env.SMTP_USER ||
-    !process.env.SMTP_PASSWORD)
-)
-  throw Error("Production requires HTTPS and database TLS");
+const configErrors = [];
+if (!origin) configErrors.push("APP_ORIGIN missing");
+else if (prod && (!origin.startsWith("https://") || origin.includes("CONFIGURE_")))
+  configErrors.push("APP_ORIGIN must be the deployed HTTPS origin");
+if (!secret || secret.length < 43) configErrors.push("JWT_SECRET missing or too short");
+if (key.length !== 32) configErrors.push("DATA_ENCRYPTION_KEY must decode to 32 bytes");
+if (!process.env.DATABASE_URL) configErrors.push("DATABASE_URL missing");
+if (prod) {
+  if (process.env.DB_TLS !== "true") configErrors.push("DB_TLS must be true");
+  if (!process.env.DB_CA?.includes("BEGIN CERTIFICATE")) configErrors.push("DB_CA missing or invalid PEM");
+  for (const name of ["SMTP_HOST", "SMTP_FROM", "SMTP_USER", "SMTP_PASSWORD"])
+    if (!process.env[name]) configErrors.push(`${name} missing`);
+}
+if (configErrors.length) throw Error(`Configuration: ${configErrors.join("; ")}`);
 if (prod && process.env.TRUST_PROXY === "1") app.set("trust proxy", 1);
 app.disable("x-powered-by");
 app.use(
