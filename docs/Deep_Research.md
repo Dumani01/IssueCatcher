@@ -60,7 +60,7 @@ Comprobar redirección HTTP, atributos de cookies, CSP/HSTS, /health, recuperaci
 
 ## Plan propuesto y estado real
 
-Navegador → HTTPS/proxy → Express y React → PostgreSQL Supabase por TLS; Express → SMTP verificado. La implementación y las pruebas locales están completas para RF01-08. Se creó un proyecto Supabase exclusivo y se aplicó esquema/RLS; su rol web permanece NOLOGIN. CA oficial, conexión desde la aplicación, hosting, SMTP externo, URL y escaneos públicos quedan pendientes. Un plan gratuito debe verificarse otra vez antes de usarlo en evaluación.
+Navegador → HTTPS/proxy → Express y React → PostgreSQL Supabase por TLS; Express → SMTP verificado. La implementación y las pruebas locales están completas para RF01-08. El proyecto Supabase de Dumani01 tiene esquema/RLS y el rol web fue probado con CA oficial y TLS; aún faltan conexión desde Render, SMTP externo, URL y escaneos públicos. Un plan gratuito debe verificarse otra vez antes de usarlo en evaluación.
 
 # Fuentes y criterio de selección
 

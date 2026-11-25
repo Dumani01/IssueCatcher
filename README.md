@@ -15,7 +15,7 @@ Abrir http://localhost:3001. Buzón de desarrollo: http://localhost:8025. Cuenta
 
 npm test: criptografía e integración en issuecatcher_test. npm run test:browser: Chrome. npm run test:runtime: rol mínimo y API levantada. npm run audit y npm run build: dependencias y compilación. Resultados reales y límites en TEST_REPORT.md.
 
-RF01-08 verificados localmente; diez categorías OWASP con controles y evidencia. Supabase tiene esquema/políticas preparados; conexión TLS y despliegue público en Render requieren acceso a los paneles y SMTP real. Docker, CI remoto, ZAP, SecurityHeaders y SSL Labs no se presentan como ejecutados.
+RF01-08 verificados localmente; diez categorías OWASP con controles y evidencia. El proyecto Supabase de Dumani01 tiene esquema/RLS y conexión runtime TLS verificada; el despliegue público en Render requiere acceso al panel y SMTP real. GitHub Actions aprobó CI; Docker, ZAP, SecurityHeaders y SSL Labs no se presentan como ejecutados.
 
 Consultar docs/Laboratorio_Oficial.docx, INSTALLATION.md, DEPLOYMENT.md, ARCHITECTURE.md, THREAT_MODEL.md, CRYPTOGRAPHY.md, SECURITY_REPORT.md, Deep_Research.pdf y DEMO.md. Colección API en postman/. `render.yaml` prepara Render, sin credenciales. PROJECT_STATUS.md refleja el estado final; los archivos de contexto conservan el punto de partida anterior.
 

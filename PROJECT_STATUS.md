@@ -12,7 +12,7 @@ Verificación: npm ci; 16/16 tests backend; 2/2 Chrome con móvil; runtime míni
 
 Documentación: arquitectura/DER/diccionario, STRIDE, matriz OWASP, criptografía/rotación, instalación/despliegue, Postman, demo y Deep Research de cuatro páginas con fuentes verificadas; documento oficial intacto.
 
-Supabase: proyecto IssueCatcher exclusivo creado con costo consultado US$0/mes; esquema/políticas y asesor sin avisos. El usuario eligió Render y se añadió `render.yaml`. Acceso a los paneles, CA/TLS, enforcement/red, SMTP externo y publicación siguen pendientes; runtime de nube NOLOGIN. No se publicaron escaneos ni historial ficticios.
+Supabase: proyecto actual de Dumani01 `jfanvpdmspptmtesfouq` con esquema/políticas y siete tablas RLS; asesor sin avisos. Rol runtime activo: conexión TLS con CA oficial verificada y DDL denegado. Falta confirmar estado final de SSL enforcement, rotar contraseña runtime, configurar SMTP externo y publicar en Render. El proyecto anterior `sgymhkvpeduerydkeqnn` no pertenece a Dumani01. No se publicaron escaneos ni historial ficticios.
 
 Servicio local en http://localhost:3001; buzón http://localhost:8025. Sin servicio Windows/autoinicio. ZIP sin secretos, datos locales, logs ni node_modules.
 

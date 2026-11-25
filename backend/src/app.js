@@ -31,8 +31,11 @@ if (
   (!origin.startsWith("https://") ||
     origin.includes("CONFIGURE_") ||
     process.env.DB_TLS !== "true" ||
+    !process.env.DB_CA ||
     !process.env.SMTP_HOST ||
-    !process.env.SMTP_FROM)
+    !process.env.SMTP_FROM ||
+    !process.env.SMTP_USER ||
+    !process.env.SMTP_PASSWORD)
 )
   throw Error("Production requires HTTPS and database TLS");
 if (prod && process.env.TRUST_PROXY === "1") app.set("trust proxy", 1);
