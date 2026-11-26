@@ -153,7 +153,8 @@ app.get("/health", async (req, res) => {
   try {
     await db.query("SELECT 1");
     res.json({ status: "ok" });
-  } catch {
+  } catch (error) {
+    log.warn({ event: "database_health_failed", code: typeof error?.code === "string" ? error.code : "unknown" });
     res.status(503).json({ status: "unavailable" });
   }
 });
